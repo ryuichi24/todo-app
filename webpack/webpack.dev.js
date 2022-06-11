@@ -6,8 +6,8 @@ module.exports = {
   devtool: "cheap-module-source-map",
   plugins: [
     new webpack.DefinePlugin({
-      "process.env": {},
-    }),
+      "process.env": {}
+    })
   ],
   devServer: {
     static: path.resolve(__dirname, "..", "./dist"),
@@ -15,6 +15,6 @@ module.exports = {
     hot: true,
     open: true,
     historyApiFallback: true,
-    compress: true,
-  },
+    compress: true
+  }
 };
