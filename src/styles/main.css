@@ -1,0 +1,235 @@
+/* ----- variables start ----- */
+:root {
+  --primary: var(--purple);
+  --secondary: var(--green);
+
+  --dark: #111417;
+  --dark-light: #25282c;
+  --white: #dcddde;
+  --grey: #40444b;
+  --green: #0be881;
+  --red: #ff6347;
+  --blue: #3a82ee;
+  --light-blue: rgba(58, 130, 238, 0.75);
+  --purple: #5865f2;
+
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+/* ----- variables end ----- */
+
+/* ----- reset start ----- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* ----- reset end ----- */
+
+/* ----- global start ----- */
+body {
+  background: var(--dark-light);
+  color: var(--white);
+  font-family: "Poppins", sans-serif;
+}
+
+li {
+  list-style-type: none;
+}
+
+input:not([type="radio"]):not([type="checkbox"]),
+button {
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: initial;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  display: none;
+}
+
+section {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 576px) {
+  .container {
+    width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1140px;
+  }
+}
+
+/* ----- global end ----- */
+
+.todo-form form .add-todo-content-input {
+  width: 100%;
+  font-size: 1.125rem;
+  padding: 1rem 1.5rem;
+  color: var(--white);
+  background-color: var(--grey);
+  border-radius: 0.5rem;
+  border: 1px solid var(--grey);
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+  outline: none;
+}
+
+.todo-form form input[type="submit"] {
+  width: 100%;
+  font-size: 1.125rem;
+  padding: 1rem 1.5rem;
+  color: var(--white);
+  background-color: var(--primary);
+  border-radius: 0.5rem;
+  border: 1px solid var(--primary);
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s ease-out;
+}
+
+.todo-form input[type="submit"]:hover {
+  opacity: 0.75;
+}
+
+/* ----- todo item start ----- */
+
+.todo-item-group-name {
+  margin-bottom: 1.5rem;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 6rem;
+  background-color: var(--dark);
+  border-radius: 0.4rem;
+  margin-bottom: 1.5rem;
+  border-left: var(--primary) 5px solid;
+  transition: 0.2s ease-in-out;
+}
+
+.todo-item:hover {
+  opacity: 0.75;
+}
+
+.todo-item .todo-item-text {
+  flex: 1 1 0%;
+  padding-left: 1rem;
+}
+
+.todo-item label {
+  display: block;
+  cursor: pointer;
+  padding-left: 1rem;
+}
+
+.todo-item.completed {
+  border-left: var(--secondary) 5px solid;
+  text-decoration: line-through;
+  color: var(--grey);
+}
+
+.todo-item-text input {
+  color: var(--white);
+  font-size: 18px;
+}
+
+.todo-item.completed .todo-item-text input {
+  text-decoration: line-through;
+  color: var(--grey);
+}
+
+/* ----- todo item end ----- */
+
+/* ----- todo item actions start ----- */
+
+.todo-item .todo-item-actions {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.todo-item .todo-item-actions button {
+  display: block;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  width: 4rem;
+  height: 2.5rem;
+}
+
+.todo-item .todo-item-actions button:hover {
+  opacity: 0.75;
+}
+
+.todo-item .todo-item-actions button.edit {
+  background-color: var(--primary);
+}
+
+.todo-item .todo-item-actions button.delete {
+  background-color: var(--red);
+}
+
+/* ----- todo item actions end ----- */
+
+/* ----- round checkbox end ----- */
+.round-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 999px;
+  border: 2px solid var(--blue);
+  box-shadow: 0px 0px 4px var(--light-blue);
+}
+
+.round-checkbox::after {
+  content: "";
+  display: block;
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+  background-color: var(--blue);
+  box-shadow: 0px 0px 4px var(--light-blue);
+  border-radius: 999px;
+  transition: 0.2s ease-in-out;
+}
+
+input:checked ~ .round-checkbox::after {
+  width: 25px;
+  height: 25px;
+  opacity: 1;
+}
+/* ----- round checkbox end ----- */

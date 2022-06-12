@@ -1,1 +1,1 @@
-<h1 align="center">Todo App</h1>
+<h1 align="center">Todo List</h1>

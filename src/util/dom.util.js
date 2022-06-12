@@ -1,7 +1,8 @@
 /**
  * A shorthand function of querySelector
- * @param selector - selector of the selected element
- * @param parent - parent DOM object (optional)
+ * @param {string} selector - selector of the selected element
+ * @param {Document | Window} parent - parent DOM object (optional)
+ * @returns {Element}
  */
 export const qs = (selector, parent = document) => {
   return parent.querySelector(selector);
@@ -9,8 +10,9 @@ export const qs = (selector, parent = document) => {
 
 /**
  * A shorthand function of querySelectorAll
- * @param selector - selector of the selected element
- * @param parent - parent DOM object (optional)
+ * @param {string} selector - selector of the selected element
+ * @param {Document | Window} parent - parent DOM object (optional)
+ * @return {Array.<Element>}
  */
 export const qsa = (selector, parent = document) => {
   return [...parent.querySelectorAll(selector)];
@@ -18,8 +20,9 @@ export const qsa = (selector, parent = document) => {
 
 /**
  * A utility function of createElement
- * @param type - tag name of the element
- * @param options - attributes of the element
+ * @param {string} type - tag name of the element
+ * @param {{id: string, class: string, text: string, dataset: { [string]:string }}} options - attributes of the element
+ * @return {HTMLElement}
  */
 export const createEl = (type, options = {}) => {
   const element = document.createElement(type);

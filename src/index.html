@@ -4,9 +4,40 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Todo List</title>
   </head>
   <body>
-    <div>Todo App</div>
+    <body>
+      <main class="container">
+        <section class="todo-form">
+          <form id="addTodoForm">
+            <input
+              type="text"
+              name="content"
+              class="add-todo-content-input"
+              id="addTodoContentInput"
+              placeholder="e.g. learn JavaScript"
+            />
+            <input type="submit" value="Add todo" class="add-todo-submit-btn" id="addTodoSubmitBtn" />
+          </form>
+        </section>
+        <section class="todo-list">
+          <div class="todo-item-group">
+            <h4 class="todo-item-group-name">Not completed</h4>
+            <ul id="notCompletedTodoList"></ul>
+          </div>
+          <div class="todo-item-group">
+            <h4 class="todo-item-group-name">Completed</h4>
+            <ul id="completedTodoList"></ul>
+          </div>
+        </section>
+      </main>
+    </body>
   </body>
 </html>

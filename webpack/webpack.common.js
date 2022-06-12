@@ -25,10 +25,7 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: require.resolve("babel-loader"),
-            options: {
-              presets: ["@babel/preset-env"]
-            }
+            loader: require.resolve("babel-loader")
           }
         ]
       },
