@@ -2,6 +2,10 @@ import { qs } from "@/util/dom.util";
 import { Todo } from "@/models/todo.model";
 import "@/styles/main.css";
 
+/**
+ * @type {Todo[]}
+ * @const
+ */
 let todoList = [];
 const TODO_LIST = "todoList";
 
@@ -46,11 +50,40 @@ const renderTodos = () => {
   completedTodoList.innerHTML = "";
 
   todoList.forEach((todoItem) => {
+    const todoEl = todoItem.toElement();
+
+    qs(".complete-checkbox", todoEl).addEventListener("change", (event) => {
+      const indexOfTodoToEdit = todoList.findIndex((item) => item.id === todoItem.id);
+      todoList[indexOfTodoToEdit].completed = event.target.checked;
+      localStorage.setItem(TODO_LIST, JSON.stringify(todoList));
+      renderTodos();
+    });
+
+    qs(".edit", todoEl).addEventListener("click", (event) => {
+      const todoItemTextInput = qs(".todo-item-text-input", todoEl);
+      todoItemTextInput.removeAttribute("readonly");
+      todoItemTextInput.focus();
+
+      todoItemTextInput.addEventListener("blur", (e) => {
+        todoItemTextInput.setAttribute("readonly", true);
+        const indexOfTodoToEdit = todoList.findIndex((item) => item.id === todoItem.id);
+        todoList[indexOfTodoToEdit].content = e.target.value;
+        localStorage.setItem(TODO_LIST, JSON.stringify(todoList));
+        renderTodos();
+      });
+    });
+
+    qs(".delete", todoEl).addEventListener("click", (event) => {
+      todoList = todoList.filter((item) => item.id !== todoItem.id);
+      localStorage.setItem(TODO_LIST, JSON.stringify(todoList));
+      renderTodos();
+    });
+
     if (!todoItem.completed) {
-      notCompletedTodoList.appendChild(todoItem.toElement());
+      notCompletedTodoList.appendChild(todoEl);
       return;
     }
 
-    completedTodoList.appendChild(todoItem.toElement());
+    completedTodoList.appendChild(todoEl);
   });
 };

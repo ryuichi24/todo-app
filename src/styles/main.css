@@ -152,8 +152,6 @@ section {
 
 .todo-item.completed {
   border-left: var(--secondary) 5px solid;
-  text-decoration: line-through;
-  color: var(--grey);
 }
 
 .todo-item-text input {
