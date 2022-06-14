@@ -231,3 +231,36 @@ input:checked ~ .round-checkbox::after {
   opacity: 1;
 }
 /* ----- round checkbox end ----- */
+
+/* ----- category start ----- */
+
+.category-container {
+  display: flex;
+  border-bottom: 2px solid var(--grey);
+  overflow-y: scroll;
+  background-color: var(--dark-light); 
+  white-space: nowrap;
+  width: 100%;
+}
+
+.category-item {
+  padding: 1rem 1rem 2.5rem 1rem;
+  height: 3rem;
+  text-align: center;
+  align-items: center;
+  transition: 0.2s ease-in-out;
+  border-bottom: 2px solid var(--dark-light);
+}
+
+.category-item:hover {
+  background-color: var(--grey);
+  cursor: pointer;
+}
+
+.category-item.selected {
+  font-weight: bold;
+  color: var(--purple);
+  border-bottom: 2px solid var(--purple);
+}
+
+/* ----- category end ----- */
