@@ -58,7 +58,8 @@ export class Todo {
     todoItemTextDiv.appendChild(todoItemTextInput);
 
     // create todo item actions
-    const todoItemActionsDropdown = DOMUtil.createEl("div", { class: "three-dots", id: "todoItemActionsBtn" });
+    const todoItemActionsDropdown = DOMUtil.createEl("div", { class: "three-dots"});
+    todoItemActionsDropdown.classList.add("todo-item-actions-btn");
     todoItemActionsDropdown.classList.add("vertical");
     todoItemActionsDropdown.classList.add("dropdown");
     const todoItemActionsDropdownContent = DOMUtil.createEl("div", { class: "dropdown-content" });

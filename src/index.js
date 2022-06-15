@@ -1,4 +1,10 @@
-import { renderCategories, renderTodos, setupAddTodoForm, setupCategorySettingBtn, setupDefaultData } from "@/app";
+import {
+  renderCategories,
+  renderTodos,
+  setupAddTodoForm,
+  setupCategorySettingBtn,
+  setupDefaultData
+} from "@/app";
 import "@/styles/main.css";
 
 window.addEventListener("load", () => {

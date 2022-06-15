@@ -221,7 +221,7 @@ section {
   top: 0;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown .dropdown-content.show {
   display: block;
 }
 

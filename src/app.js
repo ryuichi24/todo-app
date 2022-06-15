@@ -169,6 +169,15 @@ export const renderTodos = () => {
       renderTodos();
     });
 
+    DOMUtil.qs(".todo-item-actions-btn", todoEl).addEventListener("click", (event) => {
+      DOMUtil.qs(".dropdown-content").classList.add("show");
+    });
+
+    window.addEventListener("click", (event) => {
+      if (event.target.matches(".todo-item-actions-btn")) return;
+      DOMUtil.qs(".dropdown-content", todoEl).classList.remove("show");
+    });
+
     DOMUtil.qs("#todoEditBtn", todoEl).addEventListener("click", (event) => {
       const todoItemTextInput = DOMUtil.qs(".todo-item-text-input", todoEl);
       todoItemTextInput.removeAttribute("readonly");
