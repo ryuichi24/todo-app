@@ -332,7 +332,7 @@ input:checked ~ .round-checkbox::after {
 .category-setting-item-list {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  /* padding: 2rem; */
   height: 100%;
   width: 100%;
   margin: auto;
@@ -364,6 +364,8 @@ input:checked ~ .round-checkbox::after {
   background-color: var(--dark-light);
   font-size: large;
   width: 100%;
+  color: var(--white);
+  transition: 0.2s ease-out;
 }
 
 .category-setting-item-list li:hover {
