@@ -127,12 +127,32 @@ section {
   display: flex;
   align-items: center;
   width: 100%;
-  height: 6rem;
+  height: 4rem;
   background-color: var(--dark);
   border-radius: 0.4rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   border-left: var(--primary) 5px solid;
   transition: 0.2s ease-in-out;
+}
+@media (min-width: 576px) {
+  .todo-item {
+    height: 4.5rem;
+  }
+}
+@media (min-width: 768px) {
+  .todo-item {
+    height: 5rem;
+  }
+}
+@media (min-width: 992px) {
+  .todo-item {
+    height: 6rem
+  }
+}
+@media (min-width: 1200px) {
+  .todo-item {
+    height: 6rem
+  }
 }
 
 .todo-item:hover {
@@ -168,35 +188,41 @@ section {
 
 /* ----- todo item actions start ----- */
 
-.todo-item .todo-item-actions {
+.todo-item-actions-container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  width: 100%;
   height: 100%;
+  background-color: var(--dark-light);
 }
 
-.todo-item .todo-item-actions button {
+.action-item {
+  color: var(--white);
+  padding: 0.7rem;
+}
+
+.action-item:hover {
+  background-color: var(--grey);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  min-width: 80px;
+  z-index: 1;
+  right: 100%;
+  top: 0;
+}
+
+.dropdown:hover .dropdown-content {
   display: block;
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  color: #fff;
-  cursor: pointer;
-  transition: 0.2s ease-in-out;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  width: 4rem;
-  height: 2.5rem;
-}
-
-.todo-item .todo-item-actions button:hover {
-  opacity: 0.75;
-}
-
-.todo-item .todo-item-actions button.edit {
-  background-color: var(--primary);
-}
-
-.todo-item .todo-item-actions button.delete {
-  background-color: var(--red);
 }
 
 /* ----- todo item actions end ----- */
@@ -288,7 +314,17 @@ input:checked ~ .round-checkbox::after {
   font-size: 15px;
   letter-spacing: 4px;
 }
+
+.three-dots.vertical {
+  margin-right: 1rem;
+}
+
+.three-dots.vertical:after {
+  transform: translate(-10%, 10%) rotate(90deg);
+}
 /* ----- three horizontal dots end ----- */
+
+/* ----- category setting panel start ----- */
 
 .category-setting-panel {
   color: white;
@@ -332,7 +368,6 @@ input:checked ~ .round-checkbox::after {
 .category-setting-item-list {
   display: flex;
   flex-direction: column;
-  /* padding: 2rem; */
   height: 100%;
   width: 100%;
   margin: auto;
@@ -371,3 +406,5 @@ input:checked ~ .round-checkbox::after {
 .category-setting-item-list li:hover {
   background-color: var(--grey);
 }
+
+/* ----- category setting panel end ----- */

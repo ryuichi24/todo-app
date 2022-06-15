@@ -68,6 +68,11 @@ export const setupCategorySettingBtn = () => {
   DOMUtil.qs("#categoryRenameBtn").addEventListener("click", (event) => {
     let { category } = URLUtil.parseURLParams(window.location.search);
     const categoryItem = CategoryService.findById(category);
+
+    if (categoryItem.isDefault) {
+      throw new Error("Default category cannot be renamed.");
+    }
+
     const newName = window.prompt("Please enter new name", categoryItem.name);
 
     if (VUtil.isEmpty(newName)) {
@@ -82,6 +87,11 @@ export const setupCategorySettingBtn = () => {
   DOMUtil.qs("#categoryDeleteBtn").addEventListener("click", (event) => {
     let { category } = URLUtil.parseURLParams(window.location.search);
     const categoryItem = CategoryService.findById(category);
+
+    if (categoryItem.isDefault) {
+      throw new Error("Default category cannot be deleted.");
+    }
+
     const isConfirmed = window.confirm("All todo items in this category will be deleted. Are you sure?");
 
     if (!isConfirmed) {
@@ -89,7 +99,7 @@ export const setupCategorySettingBtn = () => {
     }
 
     const todosToDelete = TodoService.getAll(categoryItem.id);
-    todosToDelete.forEach(item => TodoService.remove(item));
+    todosToDelete.forEach((item) => TodoService.remove(item));
     CategoryService.remove(categoryItem);
 
     renderCategories();
@@ -159,7 +169,7 @@ export const renderTodos = () => {
       renderTodos();
     });
 
-    DOMUtil.qs(".edit", todoEl).addEventListener("click", (event) => {
+    DOMUtil.qs("#todoEditBtn", todoEl).addEventListener("click", (event) => {
       const todoItemTextInput = DOMUtil.qs(".todo-item-text-input", todoEl);
       todoItemTextInput.removeAttribute("readonly");
       todoItemTextInput.focus();
@@ -180,7 +190,7 @@ export const renderTodos = () => {
       });
     });
 
-    DOMUtil.qs(".delete", todoEl).addEventListener("click", (event) => {
+    DOMUtil.qs("#todoDeleteBtn", todoEl).addEventListener("click", (event) => {
       TodoService.remove(todoItem);
       renderTodos();
     });

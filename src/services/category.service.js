@@ -18,7 +18,6 @@ const getAll = () => {
 const findById = (categoryId) => {
   const categoryItems = LSUtil.get(CATEGORY_LIST) || [];
   categoryList = categoryItems.map((item) => new Category(item));
-  console.log(categoryList)
   const foundItem = categoryList.find((item) => item.id === categoryId);
   return foundItem;
 };

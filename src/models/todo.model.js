@@ -58,16 +58,26 @@ export class Todo {
     todoItemTextDiv.appendChild(todoItemTextInput);
 
     // create todo item actions
-    const todoItemActionsDiv = DOMUtil.createEl("div", { class: "todo-item-actions" });
-    const todoEditBtn = DOMUtil.createEl("button", { class: "edit", text: "Edit" });
-    const todoDeleteBtn = DOMUtil.createEl("button", { class: "delete", text: "Delete" });
-    todoItemActionsDiv.appendChild(todoEditBtn);
-    todoItemActionsDiv.appendChild(todoDeleteBtn);
+    const todoItemActionsDropdown = DOMUtil.createEl("div", { class: "three-dots", id: "todoItemActionsBtn" });
+    todoItemActionsDropdown.classList.add("vertical");
+    todoItemActionsDropdown.classList.add("dropdown");
+    const todoItemActionsDropdownContent = DOMUtil.createEl("div", { class: "dropdown-content" });
+
+    const todoItemActionsContainer = DOMUtil.createEl("div", { class: "todo-item-actions-container" });
+
+    const todoEditBtn = DOMUtil.createEl("div", { class: "action-item", text: "Edit", id: "todoEditBtn" });
+    const todoDeleteBtn = DOMUtil.createEl("div", { class: "action-item", text: "Delete", id: "todoDeleteBtn" });
+    todoItemActionsContainer.appendChild(todoEditBtn);
+    todoItemActionsContainer.appendChild(todoDeleteBtn);
+
+    todoItemActionsDropdownContent.appendChild(todoItemActionsContainer);
+
+    todoItemActionsDropdown.appendChild(todoItemActionsDropdownContent);
 
     // combine elements
     todoEl.appendChild(checkboxLabel);
     todoEl.appendChild(todoItemTextDiv);
-    todoEl.appendChild(todoItemActionsDiv);
+    todoEl.appendChild(todoItemActionsDropdown);
 
     return todoEl;
   }
