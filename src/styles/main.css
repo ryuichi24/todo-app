@@ -238,7 +238,7 @@ input:checked ~ .round-checkbox::after {
   display: flex;
   border-bottom: 2px solid var(--grey);
   overflow-y: scroll;
-  background-color: var(--dark-light); 
+  background-color: var(--dark-light);
   white-space: nowrap;
   width: 100%;
 }
@@ -264,3 +264,66 @@ input:checked ~ .round-checkbox::after {
 }
 
 /* ----- category end ----- */
+
+/* ----- three horizontal dots start ----- */
+.three-dots {
+  color: var(--white);
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 5px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.three-dots:hover {
+  background-color: var(--grey);
+}
+
+.three-dots:after {
+  content: "•••";
+  font-size: 15px;
+  letter-spacing: 4px;
+}
+/* ----- three horizontal dots end ----- */
+
+.category-setting-panel {
+  color: white;
+  padding: 30px;
+  z-index: 4;
+  width: 100%;
+  height: 60%;
+  position: fixed;
+  -webkit-transition: all ease 1s;
+  background-color: var(--dark-light);
+}
+
+.minimized {
+  top: 100%;
+}
+
+.maximized {
+  top: 40%;
+}
+
+.category-setting-panel-curtain {
+  position: fixed;
+  background-color: rgba(100, 100, 100, 0.5);
+  width: 100%;
+  height: 100%;
+  -webkit-transition: all ease 0.1s;
+}
+
+.active {
+  z-index: 2;
+  opacity: 100%;
+  top: 0%;
+}
+
+.deactive {
+  z-index: -1;
+  opacity: 0%;
+}

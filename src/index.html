@@ -13,37 +13,42 @@
     <title>Todo List</title>
   </head>
   <body>
-    <body>
-      <main class="container">
-        <section class="category">
-          <ul id="categoryList" class="category-container">
-            <li class="category-item">Todo List</li>
-            <li id="addCategoryBtn" class="category-item">+ New list</li>
-          </ul>
-        </section>
-        <section class="todo-form">
-          <form id="addTodoForm">
-            <input
-              type="text"
-              name="content"
-              class="add-todo-content-input"
-              id="addTodoContentInput"
-              placeholder="e.g. learn JavaScript"
-            />
-            <input type="submit" value="Add todo" class="add-todo-submit-btn" id="addTodoSubmitBtn" />
-          </form>
-        </section>
-        <section class="todo-list">
-          <div class="todo-item-group">
+    <main class="container">
+      <section class="category">
+        <ul id="categoryList" class="category-container">
+          <li class="category-item">Todo List</li>
+          <li id="addCategoryBtn" class="category-item">+ New list</li>
+        </ul>
+      </section>
+      <section class="todo-form">
+        <form id="addTodoForm">
+          <input
+            type="text"
+            name="content"
+            class="add-todo-content-input"
+            id="addTodoContentInput"
+            placeholder="e.g. learn JavaScript"
+          />
+          <input type="submit" value="Add todo" class="add-todo-submit-btn" id="addTodoSubmitBtn" />
+        </form>
+      </section>
+      <section class="todo-list">
+        <div class="todo-item-group">
+          <div style="display: flex; justify-content: space-between">
             <h4 class="todo-item-group-name">Not completed</h4>
-            <ul id="notCompletedTodoList"></ul>
+            <div id="categorySettingBtn" class="three-dots"></div>
           </div>
-          <div class="todo-item-group">
-            <h4 class="todo-item-group-name">Completed</h4>
-            <ul id="completedTodoList"></ul>
-          </div>
-        </section>
-      </main>
-    </body>
+          <ul id="notCompletedTodoList"></ul>
+        </div>
+        <div class="todo-item-group">
+          <h4 class="todo-item-group-name">Completed</h4>
+          <ul id="completedTodoList"></ul>
+        </div>
+      </section>
+    </main>
+    <div id="categorySettingPanelCurtain" class="category-setting-panel-curtain deactive"></div>
+    <div id="categorySettingPanel" class="category-setting-panel minimized">
+      Some Cool details here plus the button!
+    </div>
   </body>
 </html>
