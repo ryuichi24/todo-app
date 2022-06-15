@@ -299,6 +299,7 @@ input:checked ~ .round-checkbox::after {
   position: fixed;
   -webkit-transition: all ease 1s;
   background-color: var(--dark-light);
+  border-radius: 20px 20px 0% 0%;
 }
 
 .minimized {
@@ -326,4 +327,25 @@ input:checked ~ .round-checkbox::after {
 .deactive {
   z-index: -1;
   opacity: 0%;
+}
+
+.category-setting-item-list {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  height: 100%;
+  width: 50%;
+  margin: auto;
+}
+
+.category-setting-item-list li {
+  cursor: pointer;
+  padding: 1rem;
+  background-color: var(--dark-light);
+  font-size: large;
+}
+
+.category-setting-item-list li:hover {
+  background-color: var(--grey);
+  width: 100%;
 }
