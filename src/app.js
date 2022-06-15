@@ -64,6 +64,37 @@ export const setupCategorySettingBtn = () => {
     categorySettingPanel.classList.add("minimized");
     categorySettingPanel.classList.remove("maximized");
   });
+
+  DOMUtil.qs("#categoryRenameBtn").addEventListener("click", (event) => {
+    let { category } = URLUtil.parseURLParams(window.location.search);
+    const categoryItem = CategoryService.findById(category);
+    const newName = window.prompt("Please enter new name", categoryItem.name);
+
+    if (VUtil.isEmpty(newName)) {
+      throw new Error("Category name cannot be empty.");
+    }
+
+    categoryItem.name = newName;
+    CategoryService.update(categoryItem);
+    renderCategories();
+  });
+
+  DOMUtil.qs("#categoryDeleteBtn").addEventListener("click", (event) => {
+    let { category } = URLUtil.parseURLParams(window.location.search);
+    const categoryItem = CategoryService.findById(category);
+    const isConfirmed = window.confirm("All todo items in this category will be deleted. Are you sure?");
+
+    if (!isConfirmed) {
+      return;
+    }
+
+    const todosToDelete = TodoService.getAll(categoryItem.id);
+    todosToDelete.forEach(item => TodoService.remove(item));
+    CategoryService.remove(categoryItem);
+
+    renderCategories();
+    renderTodos();
+  });
 };
 
 export const setupDefaultData = () => {
