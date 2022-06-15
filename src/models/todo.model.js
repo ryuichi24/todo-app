@@ -58,7 +58,7 @@ export class Todo {
     todoItemTextDiv.appendChild(todoItemTextInput);
 
     // create todo item actions
-    const todoItemActionsDropdown = DOMUtil.createEl("div", { class: "three-dots"});
+    const todoItemActionsDropdown = DOMUtil.createEl("div", { class: "three-dots" });
     todoItemActionsDropdown.classList.add("todo-item-actions-btn");
     todoItemActionsDropdown.classList.add("vertical");
     todoItemActionsDropdown.classList.add("dropdown");
@@ -66,14 +66,29 @@ export class Todo {
 
     const todoItemActionsContainer = DOMUtil.createEl("div", { class: "todo-item-actions-container" });
 
-    const todoEditBtn = DOMUtil.createEl("div", { class: "action-item", text: "Edit", id: "todoEditBtn" });
-    const todoDeleteBtn = DOMUtil.createEl("div", { class: "action-item", text: "Delete", id: "todoDeleteBtn" });
-    todoItemActionsContainer.appendChild(todoEditBtn);
-    todoItemActionsContainer.appendChild(todoDeleteBtn);
+    const todoEditBtn = DOMUtil.createEl("div", { class: "action-item", text: "Edit" });
+    todoEditBtn.classList.add("todo-edit-btn");
+    const todoDeleteBtn = DOMUtil.createEl("div", { class: "action-item", text: "Delete" });
+    todoDeleteBtn.classList.add("todo-delete-btn");
+    const todoMoveToBtn = DOMUtil.createEl("div", { class: "action-item", text: "Move to" });
+    todoMoveToBtn.classList.add("todo-move-to-btn");
+    todoMoveToBtn.classList.add("dropdown");
+
+    const moveToDropdownContent = DOMUtil.createEl("div", { class: "dropdown-content" });
+    moveToDropdownContent.classList.add("move-to-dropdown-content");
+    const moveToDropdownItemsContainer = DOMUtil.createEl("div", {
+      class: "move-to-dropdown-items-container"
+    });
+
+    todoMoveToBtn.appendChild(moveToDropdownContent);
+    moveToDropdownContent.appendChild(moveToDropdownItemsContainer);
 
     todoItemActionsDropdownContent.appendChild(todoItemActionsContainer);
-
     todoItemActionsDropdown.appendChild(todoItemActionsDropdownContent);
+
+    todoItemActionsContainer.appendChild(todoEditBtn);
+    todoItemActionsContainer.appendChild(todoDeleteBtn);
+    todoItemActionsContainer.appendChild(todoMoveToBtn);
 
     // combine elements
     todoEl.appendChild(checkboxLabel);

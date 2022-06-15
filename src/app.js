@@ -42,6 +42,7 @@ export const setupAddCategoryBtn = () => {
 
     CategoryService.add(new Category({ name: categoryName }));
     renderCategories();
+    renderTodos();
   });
 };
 
@@ -82,6 +83,7 @@ export const setupCategorySettingBtn = () => {
     categoryItem.name = newName;
     CategoryService.update(categoryItem);
     renderCategories();
+    renderTodos();
   });
 
   DOMUtil.qs("#categoryDeleteBtn").addEventListener("click", (event) => {
@@ -174,11 +176,12 @@ export const renderTodos = () => {
     });
 
     window.addEventListener("click", (event) => {
-      if (event.target.matches(".todo-item-actions-btn")) return;
+      if (event.target.matches(".todo-item-actions-btn") || event.target.matches(".todo-move-to-btn")) return;
       DOMUtil.qs(".dropdown-content", todoEl).classList.remove("show");
+      DOMUtil.qs(".move-to-dropdown-content", todoEl).classList.remove("show");
     });
 
-    DOMUtil.qs("#todoEditBtn", todoEl).addEventListener("click", (event) => {
+    DOMUtil.qs(".todo-edit-btn", todoEl).addEventListener("click", (event) => {
       const todoItemTextInput = DOMUtil.qs(".todo-item-text-input", todoEl);
       todoItemTextInput.removeAttribute("readonly");
       todoItemTextInput.focus();
@@ -199,9 +202,27 @@ export const renderTodos = () => {
       });
     });
 
-    DOMUtil.qs("#todoDeleteBtn", todoEl).addEventListener("click", (event) => {
+    DOMUtil.qs(".todo-delete-btn", todoEl).addEventListener("click", (event) => {
       TodoService.remove(todoItem);
       renderTodos();
+    });
+
+    DOMUtil.qs(".todo-move-to-btn", todoEl).addEventListener("click", (event) => {
+      DOMUtil.qs(".move-to-dropdown-content", todoEl).classList.add("show");
+    });
+
+    CategoryService.getAll().forEach((categoryItem) => {
+      if (categoryItem.id === todoItem.categoryId) return;
+
+      const categoryItemEl = DOMUtil.createEl("div", { class: "action-item", text: categoryItem.name });
+
+      categoryItemEl.addEventListener("click", (event) => {
+        todoItem.categoryId = categoryItem.id;
+        TodoService.update(todoItem);
+        renderTodos();
+      });
+
+      DOMUtil.qs(".move-to-dropdown-content", todoEl).appendChild(categoryItemEl);
     });
 
     if (!todoItem.completed) {
