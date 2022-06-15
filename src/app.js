@@ -170,7 +170,7 @@ export const renderTodos = () => {
     });
 
     DOMUtil.qs(".todo-item-actions-btn", todoEl).addEventListener("click", (event) => {
-      DOMUtil.qs(".dropdown-content").classList.add("show");
+      DOMUtil.qs(".dropdown-content", todoEl).classList.add("show");
     });
 
     window.addEventListener("click", (event) => {
