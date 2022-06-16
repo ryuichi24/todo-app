@@ -92,10 +92,23 @@ export class Todo {
       value: this.content
     });
 
-    const todoItemUpdatedAt = DOMUtil.createEl("small", { text: `updated ${formatUtil.formatRelativeDate(this.updatedAt)}` });
+    const todoItemUpdatedAt = DOMUtil.createEl("small", {
+      class: "todo-date-time",
+      text: `updated ${formatUtil.formatRelativeDate(this.updatedAt)}`,
+      style: "display: none;"
+    });
+
+    todoItemUpdatedAt.classList.add("show");
+
+    const todoItemCreatedAt = DOMUtil.createEl("small", {
+      class: "todo-date-time",
+      text: `created ${formatUtil.formatRelativeDate(this.createdAt)}`,
+      style: "display: none;"
+    });
 
     todoItemTextDiv.appendChild(todoItemTextInput);
     todoItemTextDiv.appendChild(todoItemUpdatedAt);
+    todoItemTextDiv.appendChild(todoItemCreatedAt);
 
     // create todo item actions
     const todoItemActionsDropdown = DOMUtil.createEl("div", { class: "three-dots" });

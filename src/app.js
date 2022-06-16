@@ -161,6 +161,19 @@ export const renderTodos = () => {
       renderTodos();
     });
 
+    const todoDateItems = DOMUtil.qsa(".todo-date-time", todoEl);
+    todoDateItems.forEach((item) =>
+      item.addEventListener("click", (event) => {
+        todoDateItems.forEach((item) => {
+          if (item.classList.contains("show")) {
+            item.classList.remove("show");
+          } else {
+            item.classList.add("show");
+          }
+        });
+      })
+    );
+
     DOMUtil.qs(".todo-item-actions-btn", todoEl).addEventListener("click", (event) => {
       DOMUtil.qs(".dropdown-content", todoEl).classList.add("show");
     });

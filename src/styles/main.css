@@ -196,6 +196,14 @@ hr {
   color: var(--grey);
 }
 
+.todo-date-time {
+  cursor: pointer;
+}
+
+.todo-date-time.show {
+  display: block !important;
+}
+
 /* ----- todo item end ----- */
 
 /* ----- todo item actions start ----- */
