@@ -1,17 +1,46 @@
 import { DOMUtil } from "@/util/dom.util";
 import { generateId } from "@/util/generate-id.util";
+import { VUtil } from "@/util/validation.util";
 
 export class Category {
   id;
   name;
   isSelected;
   isDefault;
+  createdAt;
+  updatedAt;
 
-  constructor({ id = generateId(), name = "", isSelected = false, isDefault = false } = {}) {
+  constructor({ id, name, isSelected, isDefault, createdAt, updatedAt }) {
     this.id = id;
     this.name = name;
     this.isSelected = isSelected;
     this.isDefault = isDefault;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
+  static create({
+    id = generateId(),
+    name = "",
+    isSelected = false,
+    isDefault = false,
+    createdAt = new Date().getTime(),
+    updatedAt = new Date().getTime()
+  } = {}) {
+    if (VUtil.isEmpty(name)) {
+      throw new Error("Category name cannot be empty.");
+    }
+
+    return new Category({ id, name, isSelected, isDefault, createdAt, updatedAt });
+  }
+
+  updateName(newName) {
+    if (VUtil.isEmpty(newName)) {
+      throw new Error("Category name cannot be empty.");
+    }
+
+    this.name = newName;
+    this.updatedAt = new Date().getTime();
   }
 
   /**

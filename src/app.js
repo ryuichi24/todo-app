@@ -4,7 +4,6 @@ import { DOMUtil } from "@/util/dom.util";
 import { URLUtil } from "@/util/url.util";
 import { Todo } from "@/models/todo.model";
 import { TodoService } from "@/services/todo.service";
-import { VUtil } from "@/util/validation.util";
 
 const DEFAULT_CATEGORY_ID = "1476719242328";
 
@@ -17,14 +16,8 @@ export const setupAddTodoForm = () => {
     const addTodoContentInput = children["content"];
     const todoContent = addTodoContentInput.value;
 
-    if (VUtil.isEmpty(todoContent)) {
-      throw new Error("Please enter todo content.");
-    }
-
     const { category } = URLUtil.parseURLParams(window.location.search);
-
-    const todo = new Todo({ content: todoContent, categoryId: category });
-    TodoService.add(todo);
+    TodoService.add(Todo.create({ content: todoContent, categoryId: category }));
 
     event.target.reset();
     renderTodos();
@@ -35,12 +28,7 @@ export const setupAddCategoryBtn = () => {
   const addCategoryBtn = DOMUtil.qs("#addCategoryBtn");
   addCategoryBtn.addEventListener("click", () => {
     const categoryName = window.prompt("Please enter category name.");
-
-    if (VUtil.isEmpty(categoryName)) {
-      throw new Error("Category name cannot be empty.");
-    }
-
-    CategoryService.add(new Category({ name: categoryName }));
+    CategoryService.add(Category.create({ name: categoryName }));
     renderCategories();
     renderTodos();
   });
@@ -70,17 +58,9 @@ export const setupCategorySettingBtn = () => {
     let { category } = URLUtil.parseURLParams(window.location.search);
     const categoryItem = CategoryService.findById(category);
 
-    if (categoryItem.isDefault) {
-      throw new Error("Default category cannot be renamed.");
-    }
-
     const newName = window.prompt("Please enter new name", categoryItem.name);
 
-    if (VUtil.isEmpty(newName)) {
-      throw new Error("Category name cannot be empty.");
-    }
-
-    categoryItem.name = newName;
+    categoryItem.updateName(newName);
     CategoryService.update(categoryItem);
     renderCategories();
     renderTodos();
@@ -90,19 +70,30 @@ export const setupCategorySettingBtn = () => {
     let { category } = URLUtil.parseURLParams(window.location.search);
     const categoryItem = CategoryService.findById(category);
 
-    if (categoryItem.isDefault) {
-      throw new Error("Default category cannot be deleted.");
-    }
-
     const isConfirmed = window.confirm("All todo items in this category will be deleted. Are you sure?");
 
     if (!isConfirmed) {
       return;
     }
 
+    CategoryService.remove(categoryItem);
     const todosToDelete = TodoService.getAll(categoryItem.id);
     todosToDelete.forEach((item) => TodoService.remove(item));
-    CategoryService.remove(categoryItem);
+
+    renderCategories();
+    renderTodos();
+  });
+
+  DOMUtil.qs("#categoryDeleteAllCompletedBtn").addEventListener("click", (event) => {
+    const isConfirmed = window.confirm("All completed todo items in this category will be deleted. Are you sure?");
+
+    if (!isConfirmed) {
+      return;
+    }
+
+    let { category } = URLUtil.parseURLParams(window.location.search);
+    const completedTodos = TodoService.getAll(category).filter((item) => item.completed);
+    completedTodos.forEach((item) => TodoService.remove(item));
 
     renderCategories();
     renderTodos();
@@ -113,8 +104,7 @@ export const setupDefaultData = () => {
   const categoryItems = CategoryService.getAll();
 
   if (categoryItems.length === 0) {
-    const defaultCategory = new Category({ id: DEFAULT_CATEGORY_ID, name: "Todo list", isDefault: true });
-    CategoryService.add(defaultCategory);
+    CategoryService.add(Category.create({ id: DEFAULT_CATEGORY_ID, name: "Todo list", isDefault: true }));
   }
 };
 
@@ -166,7 +156,7 @@ export const renderTodos = () => {
     const todoEl = todoItem.toElement();
 
     DOMUtil.qs(".complete-checkbox", todoEl).addEventListener("change", (event) => {
-      todoItem.completed = event.target.checked;
+      event.target.checked ? todoItem.complete() : todoItem.unComplete();
       TodoService.update(todoItem);
       renderTodos();
     });
@@ -188,15 +178,8 @@ export const renderTodos = () => {
 
       todoItemTextInput.addEventListener("blur", (e) => {
         const todoContent = e.target.value;
-
-        if (VUtil.isEmpty(todoContent)) {
-          renderTodos();
-          throw new Error("Todo content cannot be empty.");
-        }
-
         todoItemTextInput.setAttribute("readonly", true);
-
-        todoItem.content = todoContent;
+        todoItem.updateContent(todoContent);
         TodoService.update(todoItem);
         renderTodos();
       });
@@ -217,7 +200,7 @@ export const renderTodos = () => {
       const categoryItemEl = DOMUtil.createEl("div", { class: "action-item", text: categoryItem.name });
 
       categoryItemEl.addEventListener("click", (event) => {
-        todoItem.categoryId = categoryItem.id;
+        todoItem.moveTo(categoryItem.id);
         TodoService.update(todoItem);
         renderTodos();
       });

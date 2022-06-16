@@ -55,6 +55,12 @@ section {
   margin-bottom: 2rem;
 }
 
+hr {
+  height: 1px;
+  background-color: var(--grey);
+  border: none;
+}
+
 .container {
   width: 100%;
   padding-right: 15px;
@@ -162,6 +168,12 @@ section {
 .todo-item .todo-item-text {
   flex: 1 1 0%;
   padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-item .todo-item-text small {
+  color: var(--grey);
 }
 
 .todo-item label {
@@ -223,8 +235,6 @@ section {
 .dropdown .dropdown-content.show {
   display: block;
 }
-
-
 
 /* ----- todo item actions end ----- */
 

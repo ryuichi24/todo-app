@@ -5,7 +5,7 @@ import { Category } from "@/models/category.model";
  * @type {Category[]}
  * @const
  */
-let categoryList = [new Category({ id: "2345325t632", name: "Todo list", isDefault: true, isSelected: true })];
+let categoryList = [];
 
 const CATEGORY_LIST = "CATEGORY_LIST";
 
@@ -28,12 +28,20 @@ const add = (categoryItem) => {
 };
 
 const update = (categoryItem) => {
+  if (categoryItem.isDefault) {
+    throw new Error("Default category cannot be renamed.");
+  }
+
   const indexOfCategoryToEdit = categoryList.findIndex((item) => item.id === categoryItem.id);
   categoryList[indexOfCategoryToEdit] = categoryItem;
   LSUtil.set(CATEGORY_LIST, categoryList);
 };
 
 const remove = (categoryItem) => {
+  if (categoryItem.isDefault) {
+    throw new Error("Default category cannot be deleted.");
+  }
+
   categoryList = categoryList.filter((item) => item.id !== categoryItem.id);
   LSUtil.set(CATEGORY_LIST, categoryList);
 };

@@ -1,5 +1,7 @@
 import { DOMUtil } from "@/util/dom.util";
 import { generateId } from "@/util/generate-id.util";
+import { VUtil } from "@/util/validation.util";
+import { formatUtil } from "@/util/format.util";
 
 export class Todo {
   id;
@@ -7,19 +9,54 @@ export class Todo {
   categoryId;
   completed;
   createdAt;
+  updatedAt;
 
-  constructor({
-    id = generateId(),
-    content = "",
-    completed = false,
-    createdAt = new Date().getTime(),
-    categoryId = ""
-  } = {}) {
+  constructor({ id, content, completed, createdAt, updatedAt, categoryId }) {
     this.id = id;
     this.content = content;
     this.categoryId = categoryId;
     this.completed = completed;
     this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
+  static create({
+    id = generateId(),
+    content = "",
+    completed = false,
+    createdAt = new Date().getTime(),
+    updatedAt = new Date().getTime(),
+    categoryId = ""
+  } = {}) {
+    if (VUtil.isEmpty(content)) {
+      throw new Error("Todo content cannot be empty.");
+    }
+
+    return new Todo({ id, content, completed, createdAt, updatedAt, categoryId });
+  }
+
+  updateContent(newContent) {
+    if (VUtil.isEmpty(newContent)) {
+      throw new Error("Todo content cannot be empty.");
+    }
+
+    this.content = newContent;
+    this.updatedAt = new Date().getTime();
+  }
+
+  moveTo(categoryId) {
+    this.categoryId = categoryId;
+    this.updatedAt = new Date().getTime();
+  }
+
+  complete() {
+    this.completed = true;
+    this.updatedAt = new Date().getTime();
+  }
+
+  unComplete() {
+    this.completed = false;
+    this.updatedAt = new Date().getTime();
   }
 
   /**
@@ -55,21 +92,25 @@ export class Todo {
       value: this.content
     });
 
+    const todoItemUpdatedAt = DOMUtil.createEl("small", { text: `updated ${formatUtil.formatRelativeDate(this.updatedAt)}` });
+
     todoItemTextDiv.appendChild(todoItemTextInput);
+    todoItemTextDiv.appendChild(todoItemUpdatedAt);
 
     // create todo item actions
     const todoItemActionsDropdown = DOMUtil.createEl("div", { class: "three-dots" });
     todoItemActionsDropdown.classList.add("todo-item-actions-btn");
     todoItemActionsDropdown.classList.add("vertical");
     todoItemActionsDropdown.classList.add("dropdown");
-    const todoItemActionsDropdownContent = DOMUtil.createEl("div", { class: "dropdown-content" });
 
+    const todoItemActionsDropdownContent = DOMUtil.createEl("div", { class: "dropdown-content" });
     const todoItemActionsContainer = DOMUtil.createEl("div", { class: "todo-item-actions-container" });
 
     const todoEditBtn = DOMUtil.createEl("div", { class: "action-item", text: "Edit" });
     todoEditBtn.classList.add("todo-edit-btn");
     const todoDeleteBtn = DOMUtil.createEl("div", { class: "action-item", text: "Delete" });
     todoDeleteBtn.classList.add("todo-delete-btn");
+
     const todoMoveToBtn = DOMUtil.createEl("div", { class: "action-item", text: "Move to" });
     todoMoveToBtn.classList.add("todo-move-to-btn");
     todoMoveToBtn.classList.add("dropdown");
